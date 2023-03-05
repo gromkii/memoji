@@ -2,9 +2,11 @@ import React from 'react';
 
 // Be more specific about props later.
 const GameBoard = (props) => {
-  <div>
-    Gameboard. :smile:
-  </div> 
+  return (
+    <div>
+      GameBoard
+    </div>
+  );
 };
 
 export default GameBoard;
