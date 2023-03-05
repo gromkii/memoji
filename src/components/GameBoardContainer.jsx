@@ -3,7 +3,7 @@ import {
   useSelector,
   useDispatch
 } from 'react-redux';
-import { Button } from '@mui/material';
+import { Box, Button, Container } from '@mui/material';
 
 // Components
 import GameBoard from './GameBoard';
@@ -12,7 +12,7 @@ import { GAME_STATE, setSettingsModal } from './gameReducer';
 
 /* Main container to facilitate game logic and such. */
 const GameBoardContainer = () => {
-  const { gameState } = useSelector(state => state.game);
+  const { gameState, settingsModalOpen } = useSelector(state => state.game);
   const dispatch = useDispatch();
   
   const handleOpen = () => {
@@ -20,17 +20,27 @@ const GameBoardContainer = () => {
   }
 
   return (
-    <div className="container">
-      <Button 
-        variant="outlined" 
-        onClick={handleOpen}
-      >New Game</Button>
-      {gameState === GAME_STATE.INIT &&
-        <GameBoard />
-      }
-      
-      <GameSettingsModal/>
-    </div>
+    <Container className="container" style={{
+      height: '100%',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center'
+    }}>
+      <div className="main">
+        {!settingsModalOpen &&
+          <Button 
+            variant="outlined" 
+            onClick={handleOpen}
+          >New Game</Button>
+        }
+        
+        {gameState === GAME_STATE.INIT &&
+          <GameBoard />
+        }
+        
+        <GameSettingsModal/>
+      </div>
+    </Container>
   );
 }
 
