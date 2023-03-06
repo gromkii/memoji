@@ -14,6 +14,8 @@ import { GAME_STATE, setSettingsModal } from './gameReducer';
 const GameBoardContainer = () => {
   const { gameState, settingsModalOpen } = useSelector(state => state.game);
   const dispatch = useDispatch();
+
+  console.log(gameState);
   
   const handleOpen = () => {
     dispatch(setSettingsModal(true));
@@ -26,15 +28,16 @@ const GameBoardContainer = () => {
       justifyContent: 'center',
       alignItems: 'center'
     }}>
+      
       <div className="main">
-        {!settingsModalOpen &&
+        {(!settingsModalOpen && gameState === GAME_STATE.INIT) &&
           <Button 
             variant="outlined" 
             onClick={handleOpen}
           >New Game</Button>
         }
         
-        {gameState === GAME_STATE.INIT &&
+        {gameState === GAME_STATE.IN_PROGRESS &&
           <GameBoard />
         }
         

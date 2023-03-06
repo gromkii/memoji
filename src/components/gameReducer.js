@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { initDeck } from '../utils/gameUtils';
 
 export const GAME_STATE = {
   INIT: 'INIT',
@@ -20,8 +21,9 @@ export const gameSlice = createSlice({
     initGameState(state) {
       state = initialState
     },
-    initGameDeck(state) {
-
+    initGameDeck(state, action) {
+      state.gameDeck = initDeck(action.payload);
+      state.gameState = GAME_STATE.IN_PROGRESS;
     },
     setGameState(state, action) {
       state.gameState = action.payload;
@@ -35,9 +37,15 @@ export const gameSlice = createSlice({
     setSettingsModal(state, action) {
       state.settingsModalOpen = action.payload;
     },
+    setCardFlipped(state, action) {
+      // TODO: Make this work.
+      console.log(action.payload);
+      console.log(state.gameDeck[action.payload].isFlipped);
+      state.gameDeck[action.payload].isFlipped = !state.gameDeck[action.payload].isFlipped;
+    }
   },
 });
 
-export const { initGameState, initGameDeck, setGameState, setGameDeck, setBoardSize, setSettingsModal } = gameSlice.actions; 
+export const { initGameState, initGameDeck, setGameState, setGameDeck, setBoardSize, setSettingsModal, setCardFlipped } = gameSlice.actions; 
 
 export default gameSlice.reducer;

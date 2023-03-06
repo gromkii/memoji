@@ -19,3 +19,17 @@ code {
 .main {
   padding: 50px;
 }
+
+.game-card {
+  height: 200px;
+  width: 200px;
+  display: flex;
+  background-color: #444ccc;
+  justify-content: center;
+  align-items: center;
+  border-radius: 15%;
+}
+
+.flipped {
+  background-color: #4a4a4a;
+}

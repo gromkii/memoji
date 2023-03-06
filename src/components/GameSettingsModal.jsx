@@ -12,7 +12,7 @@ import {
   useDispatch
 } from 'react-redux';
 
-import { setSettingsModal } from './gameReducer';
+import { setSettingsModal, initGameDeck } from './gameReducer';
 
 const style = {
   position: 'absolute',
@@ -22,17 +22,20 @@ const style = {
   width: 400,
 };
 
+const BOARD_OPTIONS = [8, 16, 32];
+
 const GameSettingsModal = () => {
   const [boardSize, setBoardSize] = useState(8);
   const { settingsModalOpen: open } = useSelector(state => state.game)
   const dispatch = useDispatch();
 
-  const handleClose = () => { dispatch(setSettingsModal(false))}
+  const handleClose = () => { 
+    dispatch(initGameDeck(boardSize));
+    dispatch(setSettingsModal(false));
+  }
   
-  const handleBoardSize = (e) => {
-    console.log(e);
-
-    setBoardSize(e.value);
+  const handleBoardSize = (e, v) => {
+    setBoardSize(v);
   }
 
   return (
@@ -46,21 +49,22 @@ const GameSettingsModal = () => {
         justifyContent: 'center',
         alignItems: 'center',
         flexDirection: 'column',
+        padding: 50,
       }}>
-        <Typography variant="h6" component="h2">
+        <Typography variant="h5">
           Select Board Size
         </Typography>
 
-        <ToggleButtonGroup onChange={(e) => handleBoardSize(e)}>
-          <ToggleButton value={8}>
-            8
-          </ToggleButton>
-          <ToggleButton value={16}>
-            16
-          </ToggleButton>
-          <ToggleButton value={32}>
-            32
-          </ToggleButton>
+        <ToggleButtonGroup 
+          exclusive
+          value={boardSize} 
+          onChange={handleBoardSize}
+        >
+          {BOARD_OPTIONS.map((option) => (
+            <ToggleButton value={option}>
+              {option}
+            </ToggleButton>
+          ))}
         </ToggleButtonGroup>
 
         <Button onClick={handleClose}>

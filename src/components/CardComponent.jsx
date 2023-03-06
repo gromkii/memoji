@@ -1,9 +1,13 @@
 import React from 'react';
 
-const CardComponent = (props) => {
+const CardComponent = ({ card }) => {
   return (
-    <div>
-      card
+    <div className="game-card">
+      {!card.isFlipped ? (
+        <span>{card.symbol}</span>
+      ) : (
+        <span>Flipped</span>
+      )}
     </div>
   );
 };
