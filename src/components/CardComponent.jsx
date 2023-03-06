@@ -3,7 +3,7 @@ import React from 'react';
 const CardComponent = ({ card }) => {
   return (
     <div className="game-card">
-      {!card.isFlipped ? (
+      {card.isFlipped ? (
         <span>{card.symbol}</span>
       ) : (
         <span>Flipped</span>

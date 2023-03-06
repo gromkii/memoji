@@ -39,13 +39,18 @@ export const gameSlice = createSlice({
     },
     setCardFlipped(state, action) {
       // TODO: Make this work.
-      console.log(action.payload);
-      console.log(state.gameDeck[action.payload].isFlipped);
       state.gameDeck[action.payload].isFlipped = !state.gameDeck[action.payload].isFlipped;
+    },
+    setCardMatched(state, action) {
+      state.gameDeck[action.payload[0]].matched = true;
+      state.gameDeck[action.payload[1]].matched = true;
+
+      console.log(action)
+      console.llg(state.gameDeck);
     }
   },
 });
 
-export const { initGameState, initGameDeck, setGameState, setGameDeck, setBoardSize, setSettingsModal, setCardFlipped } = gameSlice.actions; 
+export const { initGameState, initGameDeck, setGameState, setGameDeck, setBoardSize, setSettingsModal, setCardFlipped, setCardMatched } = gameSlice.actions; 
 
 export default gameSlice.reducer;

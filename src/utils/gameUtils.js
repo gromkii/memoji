@@ -16,7 +16,18 @@ const emojiList = [ '👀', '🙌', '👌', '🥊', '😩', '💅', '😨', '�
 
 const initCard = (symbol) => {
   return {
-    flipped: false,
+    isFlipped: false,
+    matched: false,
     symbol
   };
+};
+
+export const checkGameEnd = (deck) => {
+  deck.forEach(card => {
+    if (!card.matched) {
+      return false;
+    }
+  });
+
+  return true;
 };

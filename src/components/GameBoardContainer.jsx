@@ -15,8 +15,6 @@ const GameBoardContainer = () => {
   const { gameState, settingsModalOpen } = useSelector(state => state.game);
   const dispatch = useDispatch();
 
-  console.log(gameState);
-  
   const handleOpen = () => {
     dispatch(setSettingsModal(true));
   }
