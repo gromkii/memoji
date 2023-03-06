@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { 
   Box,
   Button,
-  Modal, 
+  Dialog, 
   ToggleButton,
   ToggleButtonGroup,
   Typography,
@@ -39,7 +39,7 @@ const GameSettingsModal = () => {
   }
 
   return (
-    <Modal
+    <Dialog
       open={open}
       onClose={handleClose}
       style={style}
@@ -60,8 +60,8 @@ const GameSettingsModal = () => {
           value={boardSize} 
           onChange={handleBoardSize}
         >
-          {BOARD_OPTIONS.map((option) => (
-            <ToggleButton value={option}>
+          {BOARD_OPTIONS.map((option, i) => (
+            <ToggleButton value={option} key={i}>
               {option}
             </ToggleButton>
           ))}
@@ -71,7 +71,7 @@ const GameSettingsModal = () => {
           Start Game
         </Button>
       </Box>
-    </Modal>
+    </Dialog>
   )
 };
 

@@ -1,12 +1,16 @@
 import React from 'react';
+import cx from 'classnames';
 
-const CardComponent = ({ card }) => {
+const CardComponent = ({ card, index }) => {
   return (
-    <div className="game-card">
-      {card.isFlipped ? (
+    <div className={cx(
+      'game-card',
+      { flipped: card.isFlipped }
+    )}>
+      {(card.isFlipped || card.matched ) ? (
         <span>{card.symbol}</span>
       ) : (
-        <span>Flipped</span>
+        <span>{index + 1}</span>
       )}
     </div>
   );

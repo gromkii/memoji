@@ -1,4 +1,7 @@
-import React, { useState } from 'react';
+import React, { 
+  useState,
+  useEffect
+} from 'react';
 import {
   useDispatch,
   useSelector
@@ -19,23 +22,24 @@ const GameBoard = (props) => {
 
   // TODO: This logic is close, but not close enough. Get it in order, firstChoice strat might suck.
   const handleOnclick = (i) => {
-    if (!canInteract && gameDeck[i].matched) {
+    if (!canInteract || gameDeck[i].matched) {
       return;
     }
 
     // ? setCanInteract here and resolve logic before returning?
-
+    setCanInteract(false);
     dispatch(setCardFlipped(i));
-    if (!firstChoice) {
-      // Set first click.
+    
+    if (firstChoice === undefined) {
       setFirstChoice(i);
-      return
-      // return
+      setCanInteract(true);
+      return;
     }
 
     if (gameDeck[i].symbol === gameDeck[firstChoice].symbol) {
       dispatch(setCardMatched([firstChoice, i]));
-      handleCheckGameEnd();
+      setFirstChoice(undefined);
+      setCanInteract(true);
       return;
     }
     
@@ -43,7 +47,6 @@ const GameBoard = (props) => {
   }
 
   const handleResetCards = (i) => {
-    setCanInteract(false);
     setTimeout(() => {
       dispatch(setCardFlipped(i));
       dispatch(setCardFlipped(firstChoice));
@@ -51,26 +54,12 @@ const GameBoard = (props) => {
       setCanInteract(true);
     }, 2000);
   }
-
-  // this might need to happen in the reducer to avoid race conditions.
-  const handleCheckGameEnd = () => {
-    console.log('check game end');
-    if (!gameDeck.every((card) => card.matched)) {
-      console.log('every');
-      setFirstChoice(undefined);
-      return;
-    }
-
-    console.log('u win');
-
-  }
-
   
   return (
     <Grid container spacing={2}>
       { gameDeck.map((card, i) => (
-        <Grid xs={4} display="flex" justifyContent="center" onClick={(_) => handleOnclick(i)}>
-          <CardComponent card={card} key={i}/>
+        <Grid xs={4} display="flex" justifyContent="center" onClick={(_) => handleOnclick(i)} key={i}>
+          <CardComponent card={card} index={i} />
         </Grid>
       ))}
     </Grid>

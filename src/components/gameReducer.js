@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { initDeck } from '../utils/gameUtils';
+import { initDeck, checkGameEnd } from '../utils/gameUtils';
 
 export const GAME_STATE = {
   INIT: 'INIT',
@@ -42,11 +42,20 @@ export const gameSlice = createSlice({
       state.gameDeck[action.payload].isFlipped = !state.gameDeck[action.payload].isFlipped;
     },
     setCardMatched(state, action) {
-      state.gameDeck[action.payload[0]].matched = true;
-      state.gameDeck[action.payload[1]].matched = true;
+      const deckArr = state.gameDeck;
+      for (var i = 0; i < deckArr.length; i++) {
+        if (i === action.payload[0] || i === action.payload[1]) {
+          deckArr[i].matched = true;
+        }
+      }
 
-      console.log(action)
-      console.llg(state.gameDeck);
+      state.gameDeck = deckArr;
+      console.log('checking gameEnd', checkGameEnd(state.gameDeck));
+      console.log(state.gameDeck);
+      if (checkGameEnd(state.gameDeck)) {
+        console.log('gameOver, set state.');
+      }
+      
     }
   },
 });

@@ -23,11 +23,14 @@ const initCard = (symbol) => {
 };
 
 export const checkGameEnd = (deck) => {
-  deck.forEach(card => {
+  // could just do this with reduce.
+  let checkWin = true;
+
+  deck.forEach((card) => {
     if (!card.matched) {
-      return false;
+      checkWin = false;
     }
   });
 
-  return true;
+  return checkWin;
 };
