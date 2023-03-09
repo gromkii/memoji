@@ -3,7 +3,8 @@ import {
   useSelector,
   useDispatch
 } from 'react-redux';
-import { Box, Button, Container } from '@mui/material';
+import Grid from '@mui/material/Unstable_Grid2';
+import { Button, Container, Typography } from '@mui/material';
 
 // Components
 import GameBoard from './GameBoard';
@@ -23,24 +24,59 @@ const GameBoardContainer = () => {
     <Container className="container" style={{
       height: '100%',
       display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center'
+      flexDirection: 'column',
+      alignItems: 'center',
+      paddingTop: '50px'
     }}>
-      
-      <div className="main">
-        {(!settingsModalOpen && gameState === GAME_STATE.INIT) &&
-          <Button 
-            variant="outlined" 
-            onClick={handleOpen}
-          >New Game</Button>
+      <Grid xs={12}>
+        <Typography variant='h2' fontWeight={800} className="title">
+          Memoji 🤔
+        </Typography>
+        <Typography variant='h4' className="title">
+          The Emoji Memory Game
+        </Typography>
+      </Grid>
+      <Grid xs={12} className="main">
+        { gameState === GAME_STATE.COMPLETE &&
+          <Grid xs={12}>
+            <Typography variant="h4">
+              You Win! Go again?
+            </Typography>
+          </Grid>
+        }
+
+        {(!settingsModalOpen && (gameState !== GAME_STATE.IN_PROGRESS)) &&
+          <Grid xs={12} className="actions-menu">
+            <Button 
+              onClick={handleOpen}
+              variant="contained"
+              className="game-button"
+            >
+              New Game
+            </Button>
+          </Grid>
         }
         
         {gameState === GAME_STATE.IN_PROGRESS &&
-          <GameBoard />
+          <>
+            <Grid xs={12}>
+              <GameBoard />
+            </Grid>
+            <Grid xs={12} className="actions-menu">
+              <Button 
+                onClick={handleOpen}
+                variant="contained"
+                className="game-button"
+              >
+                New Game
+              </Button>
+            </Grid>
+          </>
         }
+
         
         <GameSettingsModal/>
-      </div>
+      </Grid>
     </Container>
   );
 }

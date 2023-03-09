@@ -14,15 +14,7 @@ import {
 
 import { setSettingsModal, initGameDeck } from './gameReducer';
 
-const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 400,
-};
-
-const BOARD_OPTIONS = [8, 16, 32];
+const BOARD_OPTIONS = [8, 12, 16];
 
 const GameSettingsModal = () => {
   const [boardSize, setBoardSize] = useState(8);
@@ -35,6 +27,11 @@ const GameSettingsModal = () => {
   }
   
   const handleBoardSize = (e, v) => {
+    // Handles unselecting a board size.
+    if (!v) {
+      return;
+    }
+
     setBoardSize(v);
   }
 
@@ -42,7 +39,6 @@ const GameSettingsModal = () => {
     <Dialog
       open={open}
       onClose={handleClose}
-      style={style}
     >
       <Box style={{
         display: 'flex',
@@ -59,6 +55,7 @@ const GameSettingsModal = () => {
           exclusive
           value={boardSize} 
           onChange={handleBoardSize}
+          defaultValue={8}
         >
           {BOARD_OPTIONS.map((option, i) => (
             <ToggleButton value={option} key={i}>

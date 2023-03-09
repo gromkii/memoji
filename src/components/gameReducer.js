@@ -38,7 +38,6 @@ export const gameSlice = createSlice({
       state.settingsModalOpen = action.payload;
     },
     setCardFlipped(state, action) {
-      // TODO: Make this work.
       state.gameDeck[action.payload].isFlipped = !state.gameDeck[action.payload].isFlipped;
     },
     setCardMatched(state, action) {
@@ -50,10 +49,8 @@ export const gameSlice = createSlice({
       }
 
       state.gameDeck = deckArr;
-      console.log('checking gameEnd', checkGameEnd(state.gameDeck));
-      console.log(state.gameDeck);
       if (checkGameEnd(state.gameDeck)) {
-        console.log('gameOver, set state.');
+        state.gameState = GAME_STATE.COMPLETE;
       }
       
     }
