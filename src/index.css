@@ -5,9 +5,53 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-image: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+#root {
+  height: 100vh;
+}
+
+.main {
+  margin: 50px;
+}
+
+.title {
+  color: #fff;
+  font-weight: bold;
+  text-align: center;
+}
+
+.game-card {
+  display: flex;
+  color: #fff;
+  background-color: #ea8311;
+  justify-content: center;
+  align-items: center;
+  border-radius: 15%;
+  font-size: 64px;
+  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  width: 150px;
+  height: 200px;
+}
+
+.flipped {
+  background-color: #fff;
+}
+
+.actions-menu {
+  display: flex;
+  justify-content: center;
+  margin: 50px;
+}
+
+.game-button {
+  padding: 15px;
+  font: white;
+  background-color: #ea8311;
 }
